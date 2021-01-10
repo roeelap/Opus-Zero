@@ -1,0 +1,65 @@
+body {
+  background-image: url("https://img.wallpapersafari.com/desktop/1280/1024/3/79/OkCv3K.jpg");
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+nav {
+  margin-bottom: 50px;
+}
+
+.letterButton {
+  padding: 3px 3px 3px 3px;
+  margin: 3px;
+  width: 5%;
+}
+
+.periodButton {
+  margin: 3px;
+}
+
+#welcomeMsg {
+  background: rgba(255, 255, 255, 0.85);
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#searchForm label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#submitSearch {
+  font-size: 15px;
+}
+
+#searchResult {
+  background: none;
+}
+
+#searchResult .well, #composer, #popularPieces, #composers .well {
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.85);
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#searchResult h5 {
+  margin-bottom: 20px;
+}
+
+#searchResult img {
+  width: 100%;
+}
+
+#composer img {
+  width: 100%;
+}
+
+#composers img {
+  width: 100%;
+}
