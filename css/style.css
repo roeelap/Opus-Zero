@@ -20,6 +20,13 @@ nav {
   margin: 3px;
 }
 
+.goUpButton {
+  position: fixed;
+  left: 90%;
+  top: 90%;
+  padding: 5px 15px 5px 15px;
+}
+
 #welcomeMsg {
   background: rgba(255, 255, 255, 0.85);
   padding-top: 30px;

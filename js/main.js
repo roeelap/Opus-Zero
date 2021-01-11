@@ -4,6 +4,8 @@ $(document).ready(() => {
         quickSearch(searchText);
         e.preventDefault();
     });
+
+    $(document).tooltip();
 });
 
 
