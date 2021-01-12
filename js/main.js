@@ -1,19 +1,24 @@
 $(document).ready(() => {
+    // listening for a submit in the quick search
     $("#searchForm").on("submit", (e) => {
         let searchText = $("#searchText").val();
         quickSearch(searchText);
         e.preventDefault();
     });
 
+    // making a hover-tooltip for the scroll up button
     $(document).tooltip();
 });
 
 
 function quickSearch(searchText) {
+    // omni-searching in open opus
     axios.get(`https://api.openopus.org/omnisearch/${searchText}/0.json`).then((response) => {
 
         let output = "";
-        console.log(response);
+        
+        // in case the user inputs something that does not match anything,
+        // a popup msg comes up
         if (response.data.status.error === "Nothing found") {
             output = `
                 <div class="text-center well">
@@ -27,7 +32,9 @@ function quickSearch(searchText) {
 
         let results = response.data.results;
         
+        // making a div for every result
         $.each(results, (index, result) => {
+            // if the result is a composer
             if (result.work === null) {
                 output += `
                     <div class="well d-inline-flex">
@@ -42,7 +49,10 @@ function quickSearch(searchText) {
                         </div>    
                     </div>
                 `;
-            } else {
+            
+            } 
+            // if the result is a work by a composer
+            else {
                 output += `
                     <div class="well" style="padding: 45px 45px">
                         <h4>${result.work.title}</h4>
@@ -63,10 +73,12 @@ function quickSearch(searchText) {
 
 
 function letterSearch(button, searchType) {
+    // searching by first letter of name in open opus
     axios.get(`https://api.openopus.org/composer/list/${searchType}/${button.value}.json`).then((response) => {
         let composers = response.data.composers;
         let output = "";
 
+        // if the letter doesn't have any composers, it pop up a message
         if (composers === undefined) {
             output = `
                 <div class="text-center well">
@@ -77,7 +89,8 @@ function letterSearch(button, searchType) {
             $("#composers").html(output);
             return;
         }
-
+        
+        // making a div for each composer
         $.each(composers, (index, composer) => {
             output += `
                 <div class="col-md-3">
@@ -99,18 +112,21 @@ function letterSearch(button, searchType) {
 }
 
 
-
 function composerSelected(id) {
+    // storing the id of the selected composer in the session storage
+    // and transferring the window to composer.html
     sessionStorage.setItem("composerId", id);
     window.location = "composer.html";
     return false;
 }
 
 function getComposer() {
+    // a function that runs when you open a page about a specific composer.
+    // it sets up the page - making all the necessary components
     let composerId = sessionStorage.getItem("composerId");
 
+    // searching the composer with his id in open opus
     axios.get(`https://api.openopus.org/work/list/composer/${composerId}/genre/all.json`).then((response) => {
-        console.log(response)
         let composer = response.data.composer;
         let works =  response.data.works;
 
@@ -121,7 +137,8 @@ function getComposer() {
         } else {
             deathYear = composer.death.slice(0, 4);
         }
-
+        
+        // making a short list with birth year, death year, musical period, and a link to the composer's wikipedia page
         let composerOutput = `
             <div class="row">
                 <div class="col-md-9">
@@ -141,6 +158,8 @@ function getComposer() {
 
         $("#composer").html(composerOutput);
         
+        // making a list of all the composer's work
+        // every work is a link to a YouTube search of itself
         let worksOutput = `
         <div>
             <h2>Works by ${composer.name}:</h2>
